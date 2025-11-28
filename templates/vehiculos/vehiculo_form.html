@@ -1,0 +1,29 @@
+
+{% extends 'base.html' %}
+{% block title %}Vehículo{% endblock %}
+
+{% block content %}
+<section class="page-container">
+    <h1>{% if form.instance.pk %}Editar Vehículo{% else %}Crear Vehículo{% endif %}</h1>
+
+    <form method="post" enctype="multipart/form-data" class="formulario">
+        {% csrf_token %}
+        {{ form.non_field_errors }}
+
+        {% for field in form %}
+            <div class="campo-form">
+                {{ field.label_tag }}
+                {{ field }}
+                {% if field.help_text %}
+                    <small>{{ field.help_text }}</small>
+                {% endif %}
+                {{ field.errors }}
+            </div>
+        {% endfor %}
+
+        <button type="submit" class="btn-accion">Guardar</button>
+    </form>
+
+    <a href="{% url 'lista_vehiculos' %}" class="btn-accion">Volver al listado</a>
+</section>
+{% endblock %}

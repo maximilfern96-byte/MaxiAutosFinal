@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+{% block title %}Próximamente{% endblock %}
+
+{% block content %}
+<section class="page-container" style="text-align:center; padding:60px 20px;">
+
+    <h1 style="font-size:42px; margin-bottom:20px; color:#2341ff;">
+        🚧 Próximamente 🚧
+    </h1>
+
+    <p style="font-size:18px; margin-bottom:25px;">
+        Esta sección todavía está en desarrollo.<br>
+        Muy pronto vas a poder acceder a toda esta información.
+    </p>
+
+    <img src="https://cdn-icons-png.flaticon.com/512/5994/5994710.png"
+         alt="Próximamente"
+         style="width:180px; margin-bottom:30px; opacity:0.85;">
+
+    <br>
+
+    <a href="{% url 'inicio' %}" class="btn-accion" style="padding:12px 22px; font-size:16px;">
+        Volver al inicio
+    </a>
+
+</section>
+{% endblock %}

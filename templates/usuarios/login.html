@@ -1,0 +1,29 @@
+
+{% extends 'base.html' %}
+{% block title %}Ingresar{% endblock %}
+
+{% block content %}
+<section class="page-container auth-container">
+    <h1>Ingresar</h1>
+
+    <form method="post" class="formulario">
+        {% csrf_token %}
+        {{ form.non_field_errors }}
+
+        {% for field in form %}
+            <div class="campo-form">
+                {{ field.label_tag }}
+                {{ field }}
+                {{ field.errors }}
+            </div>
+        {% endfor %}
+
+        <button type="submit" class="btn-accion">Ingresar</button>
+    </form>
+
+    <p class="auth-alt">
+        ¿No tenés cuenta?
+        <a href="{% url 'registro' %}">Registrate acá</a>
+    </p>
+</section>
+{% endblock %}

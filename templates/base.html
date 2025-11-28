@@ -1,0 +1,133 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Maxi Autos - {% block title %}{% endblock %}</title>
+    <link rel="stylesheet" href="{% static 'css/estilos.css' %}">
+    <link rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+      integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA=="
+      crossorigin="anonymous" referrerpolicy="no-referrer" />
+</head>
+<body>
+    <div class="top-bar"></div>
+
+    <header class="navbar-maxi">
+        <div class="navbar-logo">
+            <span class="logo-line">MAXI</span><br>
+            <span class="logo-line">AUTOS</span>
+        </div>
+
+        <nav class="navbar-menu">
+
+            <!-- ▼ VEHÍCULOS -->
+            <div class="nav-item dropdown">
+                <button class="nav-link">
+                    VEHÍCULOS <i class="fa-solid fa-chevron-down"></i>
+                </button>
+                <div class="dropdown-menu">
+                    <a href="{% url 'vehiculos_por_categoria' 'autos' %}">Autos</a>
+                    <a href="{% url 'vehiculos_por_categoria' 'motos' %}">Motos</a>
+                    <a href="{% url 'vehiculos_por_categoria' 'electricos' %}">Eléctricos</a>
+                    <a href="{% url 'vehiculos_por_categoria' 'atv' %}">ATV</a>
+                    <a href="{% url 'vehiculos_por_categoria' 'camionetas' %}">Camionetas</a>
+                    <a href="{% url 'vehiculos_por_categoria' 'suv' %}">SUV</a>
+                    <a href="{% url 'vehiculos_por_categoria' 'deportivos' %}">Deportivos</a>
+                    <a href="{% url 'vehiculos_por_categoria' 'utilitarios' %}">Utilitarios</a>
+                </div>
+            </div>
+
+            <!-- 🔍 BUSCAR -->
+            <a class="nav-link" href="{% url 'buscar_vehiculos' %}">
+                BUSCAR <i class="fa-solid fa-magnifying-glass"></i>
+            </a>
+
+            <!-- ❓ QUIÉNES SOMOS -->
+            <a class="nav-link" href="{% url 'quienes_somos' %}">
+                ¿QUIÉNES SOMOS?
+            </a>
+
+            <!-- 📞 CONTACTANOS -->
+            <a class="nav-link"
+               href="https://wa.me/5493584022600"
+               target="_blank" rel="noopener">
+                CONTACTANOS <i class="fa-solid fa-phone"></i>
+            </a>
+
+            {% if user.is_authenticated %}
+
+                <!-- ❤️ FAVORITOS -->
+                <a class="nav-link" href="{% url 'favoritos' %}">
+                    FAVORITOS <i class="fa-solid fa-heart"></i>
+                </a>
+
+                <!-- 👤 PERFIL -->
+                <a class="nav-link" href="{% url 'perfil' %}">
+                    {{ user.username|upper }}
+                </a>
+
+                <!-- 🚪 SALIR -->
+                <a class="nav-link" href="{% url 'logout' %}">
+                    SALIR <i class="fa-solid fa-right-from-bracket"></i>
+                </a>
+
+            {% else %}
+                <a class="nav-link" href="{% url 'login' %}">
+                    INGRESAR <i class="fa-regular fa-user"></i>
+                </a>
+            {% endif %}
+        </nav>
+    </header>
+
+    <!-- 🔔 SISTEMA DE MENSAJES -->
+    {% if messages %}
+    <div class="mensajes-container">
+        {% for message in messages %}
+            <div class="mensaje-alerta">
+                {{ message }}
+            </div>
+        {% endfor %}
+    </div>
+    {% endif %}
+
+    <!-- 🔵 BOTÓN VOLVER AL INICIO (NO EN LA HOME) -->
+    {% if request.path != "/" %}
+    <div class="volver-inicio-container">
+        <a href="{% url 'inicio' %}" class="btn-volver-inicio">
+            <i class="fa-solid fa-house"></i>
+        </a>
+    </div>
+    {% endif %}
+
+    <main>
+        {% block content %}{% endblock %}
+    </main>
+
+    <footer class="footer-maxi">
+        <div class="footer-left">
+            <div class="footer-logo">
+                <span class="logo-line">MAXI</span><br>
+                <span class="logo-line">AUTOS</span>
+            </div>
+            <p>2025 Todos los Derechos Reservados</p>
+        </div>
+
+        <!-- ⭐ TODOS LOS BOTONES AHORA VAN A /proximamente/ -->
+        <div class="footer-right">
+            <a href="{% url 'proximamente' %}" class="footer-icon">
+                <i class="fa-brands fa-instagram"></i>
+            </a>
+            <a href="{% url 'proximamente' %}" class="footer-icon">
+                <i class="fa-brands fa-facebook-f"></i>
+            </a>
+            <a href="{% url 'proximamente' %}" class="footer-icon">
+                <i class="fa-brands fa-tiktok"></i>
+            </a>
+            <a href="{% url 'proximamente' %}" class="footer-icon">
+                <i class="fa-regular fa-envelope"></i>
+            </a>
+        </div>
+    </footer>
+</body>
+</html>

@@ -1,0 +1,19 @@
+# Entornos virtuales
+.venv/
+venv/
+
+# Cache de Python
+__pycache__/
+*.pyc
+
+# Base de datos local
+db.sqlite3
+
+# Archivos de usuario
+media/
+
+# Archivos de migraciones compiladas 
+*.log
+
+# Configuración local de VS Code
+.vscode/

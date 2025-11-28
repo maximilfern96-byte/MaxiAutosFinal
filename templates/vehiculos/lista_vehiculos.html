@@ -1,0 +1,70 @@
+{% extends 'base.html' %}
+{% load formateo %}
+{% block title %}Vehículos{% endblock %}
+
+{% block content %}
+<section class="page-container">
+    <h1>Vehículos</h1>
+
+    <!-- Buscador -->
+    <form method="get"
+          action="{% if categoria %}{% url 'vehiculos_por_categoria' categoria.slug %}{% else %}{% url 'buscar_vehiculos' %}{% endif %}"
+          class="buscador-form">
+        <input type="text" name="q" placeholder="Buscar por título..." value="{{ query|default:'' }}">
+        <button type="submit"><i class="fa-solid fa-magnifying-glass"></i> Buscar</button>
+    </form>
+
+    <!-- Categoría -->
+    {% if categoria %}
+        <h2 class="subtitulo">Categoría: {{ categoria.nombre }}</h2>
+    {% endif %}
+
+    <!-- Mensajes -->
+    {% if query %}
+        {% if no_results %}
+            <p class="mensaje">No se encontraron vehículos para la búsqueda ingresada.</p>
+        {% endif %}
+    {% else %}
+        {% if mostrar_sin_cargar %}
+            <p class="mensaje">No hay vehículos cargados aún.</p>
+        {% endif %}
+    {% endif %}
+
+    <!-- LISTADO DE VEHÍCULOS -->
+    {% if vehiculos %}
+    <div class="grid-vehiculos">
+        {% for vehiculo in vehiculos %}
+            <article class="card-vehiculo">
+
+                {% if vehiculo.imagen %}
+                    <img src="{{ vehiculo.imagen.url }}" alt="{{ vehiculo.titulo }}">
+                {% else %}
+                    <div class="placeholder-img">Sin imagen</div>
+                {% endif %}
+
+                <div class="card-body">
+                    <h2>{{ vehiculo.titulo }}</h2>
+
+                    <p>{{ vehiculo.marca }} - {{ vehiculo.anio }}</p>
+
+                    <!-- ⭐ PRECIO FORMATEADO PRO ⭐ -->
+                    <p class="precio-vehiculo">$ {{ vehiculo.precio|precio_formato }}</p>
+
+                    <p class="tipo">{{ vehiculo.tipo }}</p>
+
+                    <a href="{% url 'detalle_vehiculo' vehiculo.pk %}" class="btn-ver">Ver detalle</a>
+                </div>
+            </article>
+        {% endfor %}
+    </div>
+    {% endif %}
+
+    <!-- Botón admin: solo staff / superusuario -->
+    {% if user.is_staff or user.is_superuser %}
+        <div class="acciones-admin">
+            <a href="{% url 'crear_vehiculo' %}" class="btn-accion">Cargar nuevo vehículo</a>
+        </div>
+    {% endif %}
+
+</section>
+{% endblock %}

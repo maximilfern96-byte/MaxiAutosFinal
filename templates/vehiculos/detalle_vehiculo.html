@@ -1,0 +1,158 @@
+{% extends 'base.html' %}
+{% load formateo %}
+{% block title %}{{ vehiculo.titulo }}{% endblock %}
+
+{% block content %}
+<section class="page-container">
+
+    <article class="detalle-vehiculo">
+
+        <!-- ============================= -->
+        <!--      GALERÍA / CARRUSEL      -->
+        <!-- ============================= -->
+        <div class="galeria-container">
+
+            <!-- Imagen principal -->
+            {% if vehiculo.imagen %}
+                <div class="slide active">
+                    <img src="{{ vehiculo.imagen.url }}" alt="{{ vehiculo.titulo }}">
+                </div>
+            {% endif %}
+
+            <!-- Imágenes adicionales -->
+            {% for foto in vehiculo.fotos.all %}
+                <div class="slide">
+                    <img src="{{ foto.imagen.url }}" alt="Foto adicional">
+                </div>
+            {% endfor %}
+
+            {% if vehiculo.fotos.all.count > 0 %}
+                <span class="prev" onclick="moverSlide(-1)">&#10094;</span>
+                <span class="next" onclick="moverSlide(1)">&#10095;</span>
+            {% endif %}
+        </div>
+
+        <!-- ============================= -->
+        <!--          MINIATURAS          -->
+        <!-- ============================= -->
+        <div class="galeria-mini">
+
+            <!-- Miniatura principal (índice 0) -->
+            {% if vehiculo.imagen %}
+                <img class="miniatura miniatura-activa"
+                     src="{{ vehiculo.imagen.url }}"
+                     data-index="0"
+                     onclick="mostrarMiniatura(0)">
+            {% endif %}
+
+            <!-- Miniaturas adicionales -->
+            {% for foto in vehiculo.fotos.all %}
+                <img class="miniatura"
+                     src="{{ foto.imagen.url }}"
+                     data-index="{{ forloop.counter }}"
+                     onclick="mostrarMiniatura('{{ forloop.counter }}')">
+
+            {% endfor %}
+        </div>
+
+        <!-- ============================= -->
+        <!--          INFORMACIÓN          -->
+        <!-- ============================= -->
+        <div class="detalle-info">
+
+            <h1>{{ vehiculo.titulo }}</h1>
+
+            <!-- PRECIO FORMATEADO -->
+            <p><strong>Precio:</strong> $ {{ vehiculo.precio|precio_formato }}</p>
+
+            <!-- Mensajes -->
+            {% if messages %}
+                <div class="mensaje-favorito">
+                    {% for message in messages %}
+                        <p>{{ message }}</p>
+                    {% endfor %}
+                </div>
+            {% endif %}
+
+            <p><strong>Marca:</strong> {{ vehiculo.marca }}</p>
+            <p><strong>Año:</strong> {{ vehiculo.anio }}</p>
+            <p><strong>Tipo:</strong> {{ vehiculo.tipo }}</p>
+            <p><strong>Categoría:</strong> {{ vehiculo.categoria.nombre }}</p>
+
+            <p><strong>Descripción:</strong></p>
+            <p>{{ vehiculo.descripcion|default:'Sin descripción.' }}</p>
+
+            <!-- FAVORITOS -->
+            {% if user.is_authenticated %}
+                <a href="{% url 'agregar_favorito' vehiculo.pk %}" class="btn-accion btn-favorito">
+                    <i class="fa-solid fa-heart"></i> Agregar a Favoritos
+                </a>
+            {% else %}
+                <a href="{% url 'login' %}" class="btn-accion btn-favorito">
+                    <i class="fa-solid fa-heart"></i> Iniciar sesión para guardar favoritos
+                </a>
+            {% endif %}
+
+            <!-- CONTACTAR -->
+            <a href="https://wa.me/5493584022600?text=Hola,%20estoy%20interesado%20en%20el%20{{ vehiculo.titulo }}."
+               target="_blank"
+               class="btn-accion"
+               style="background:#25D366;">
+                <i class="fa-brands fa-whatsapp"></i> Contactar al vendedor
+            </a>
+
+            <!-- VOLVER -->
+            <a href="{% url 'lista_vehiculos' %}" class="btn-accion">Volver al listado</a>
+
+            <!-- ADMIN -->
+            {% if user.is_staff %}
+                <div class="acciones-admin">
+                    <a href="{% url 'editar_vehiculo' vehiculo.pk %}" class="btn-accion">Editar</a>
+                    <a href="{% url 'eliminar_vehiculo' vehiculo.pk %}" class="btn-accion btn-peligro">Eliminar</a>
+                </div>
+            {% endif %}
+        </div>
+
+    </article>
+</section>
+
+<!-- ============================= -->
+<!--        SCRIPT CARRUSEL        -->
+<!-- ============================= -->
+<script>
+let slideIndex = 0;
+mostrarSlide(slideIndex);
+
+function moverSlide(n) {
+    mostrarSlide(slideIndex += n);
+}
+
+function mostrarSlide(n) {
+    let slides = document.getElementsByClassName("slide");
+
+    if (n >= slides.length) slideIndex = 0;
+    if (n < 0) slideIndex = slides.length - 1;
+
+    // Ocultar todas las imágenes
+    for (let i = 0; i < slides.length; i++) {
+        slides[i].style.display = "none";
+    }
+
+    // Mostrar imagen actual
+    slides[slideIndex].style.display = "block";
+
+    // Miniatura activa
+    let minis = document.getElementsByClassName("miniatura");
+    for (let m = 0; m < minis.length; m++) {
+        minis[m].classList.remove("miniatura-activa");
+    }
+    minis[slideIndex].classList.add("miniatura-activa");
+}
+
+function mostrarMiniatura(i) {
+    slideIndex = parseInt(i);
+    mostrarSlide(slideIndex);
+}
+</script>
+
+{% endblock %}

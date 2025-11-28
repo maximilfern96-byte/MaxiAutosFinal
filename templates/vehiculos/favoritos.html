@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+{% block title %}Favoritos{% endblock %}
+
+{% block content %}
+<section class="page-container">
+
+    <h1>Mis Vehículos Favoritos</h1>
+
+    <!-- Si no hay favoritos -->
+    {% if favoritos|length == 0 %}
+        <p class="mensaje">Todavía no agregaste vehículos a tus favoritos.</p>
+    {% endif %}
+
+    <!-- Listado de favoritos -->
+    <div class="grid-vehiculos">
+        {% for fav in favoritos %}
+            <article class="card-vehiculo">
+
+                {% if fav.vehiculo.imagen %}
+                    <img src="{{ fav.vehiculo.imagen.url }}" alt="{{ fav.vehiculo.titulo }}">
+                {% else %}
+                    <div class="placeholder-img">Sin imagen</div>
+                {% endif %}
+
+                <div class="card-body">
+                    <h2>{{ fav.vehiculo.titulo }}</h2>
+                    <p>{{ fav.vehiculo.marca }} - {{ fav.vehiculo.anio }}</p>
+                    <p class="tipo">{{ fav.vehiculo.tipo }}</p>
+
+                    <a href="{% url 'detalle_vehiculo' fav.vehiculo.pk %}" class="btn-ver">
+                        Ver detalle
+                    </a>
+
+                    <!-- Quitar de favoritos -->
+                    <a href="{% url 'quitar_favorito' fav.vehiculo.pk %}"
+                       class="btn-accion btn-peligro">
+                        Quitar de favoritos ❤️
+                    </a>
+                </div>
+            </article>
+        {% endfor %}
+    </div>
+
+</section>
+{% endblock %}

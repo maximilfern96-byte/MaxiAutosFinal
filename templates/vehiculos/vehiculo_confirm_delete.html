@@ -1,0 +1,16 @@
+
+{% extends 'base.html' %}
+{% block title %}Eliminar Vehículo{% endblock %}
+
+{% block content %}
+<section class="page-container">
+    <h1>Eliminar Vehículo</h1>
+    <p>¿Estás seguro que querés eliminar el vehículo <strong>{{ object }}</strong>?</p>
+
+    <form method="post">
+        {% csrf_token %}
+        <button type="submit" class="btn-accion btn-peligro">Sí, eliminar</button>
+        <a href="{% url 'lista_vehiculos' %}" class="btn-accion">Cancelar</a>
+    </form>
+</section>
+{% endblock %}

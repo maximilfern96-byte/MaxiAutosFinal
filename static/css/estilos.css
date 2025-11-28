@@ -1,0 +1,435 @@
+/* --- Pegamos el footer abajo siempre --- */
+html, body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+    margin: 0;
+    font-family: Arial, Helvetica, sans-serif;
+    background-color: #000;
+    color: #fff;
+}
+
+main {
+    flex: 1;
+}
+
+.top-bar {
+    height: 16px;
+    background-color: #000;
+}
+
+/* ======================================= */
+/*                 NAVBAR                  */
+/* ======================================= */
+
+.navbar-maxi {
+    background-color: #1b13d6;
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 12px 40px;
+}
+
+.navbar-logo {
+    font-family: "Times New Roman", serif;
+    font-size: 28px;
+    font-weight: bold;
+    line-height: 1.1;
+}
+
+.logo-line {
+    letter-spacing: 3px;
+}
+
+.navbar-menu {
+    display: flex;
+    align-items: center;
+    gap: 28px;
+}
+
+.nav-link {
+    background: none;
+    border: none;
+    color: #fff;
+    font-size: 16px;
+    letter-spacing: 1px;
+    text-decoration: none;
+    cursor: pointer;
+    text-transform: uppercase;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.nav-item {
+    position: relative;
+}
+
+.dropdown-menu {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    background-color: #1b13d6;
+    padding: 10px 0;
+    min-width: 190px;
+    display: none;
+    flex-direction: column;
+    z-index: 1000;
+}
+
+.dropdown-menu a {
+    padding: 8px 20px;
+    color: #fff;
+    text-decoration: none;
+    font-size: 14px;
+    text-transform: uppercase;
+}
+
+.dropdown-menu a:hover {
+    background-color: #100a80;
+}
+
+.dropdown:hover .dropdown-menu {
+    display: flex;
+}
+
+/* ======================================= */
+/*                 FOOTER                  */
+/* ======================================= */
+
+.footer-maxi {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #4e4e4e;
+    padding: 30px 60px;
+    border-top: 4px solid #1b13d6;
+}
+
+.footer-left p {
+    margin-top: 10px;
+    font-size: 14px;
+}
+
+.footer-right {
+    display: flex;
+    gap: 24px;
+}
+
+.footer-icon {
+    font-size: 26px;
+    color: #fff;
+    text-decoration: none;
+}
+
+/* ======================================= */
+/*              CONTENEDORES               */
+/* ======================================= */
+
+.page-container {
+    max-width: 1000px;
+    margin: 40px auto 60px;
+    padding: 0 20px;
+}
+
+/* ======================================= */
+/*                 BUSCADOR                */
+/* ======================================= */
+
+.buscador-form {
+    display: flex;
+    gap: 10px;
+    margin: 20px 0;
+}
+
+.buscador-form input {
+    flex: 1;
+    padding: 8px;
+    border-radius: 4px;
+    border: 1px solid #444;
+    background-color: #222;
+    color: #fff;
+}
+
+.buscador-form button {
+    padding: 8px 16px;
+    border-radius: 4px;
+    border: none;
+    background-color: #1b13d6;
+    color: #fff;
+    cursor: pointer;
+}
+
+/* ======================================= */
+/*              TARJETAS GRID              */
+/* ======================================= */
+
+.grid-vehiculos {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 20px;
+    margin-top: 20px;
+}
+
+.card-vehiculo {
+    background-color: #111;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.5);
+}
+
+.card-vehiculo img {
+    width: 100%;
+    height: auto;
+    max-height: 240px;
+    object-fit: cover;
+    display: block;
+    border-bottom: 2px solid #000;
+}
+
+.placeholder-img {
+    width: 100%;
+    height: auto;
+    padding: 50px 0;
+    background-color: #333;
+    color: #aaa;
+    text-align: center;
+}
+
+.card-body {
+    padding: 10px 12px 14px;
+}
+
+.card-body h2 {
+    margin: 0 0 6px;
+    font-size: 18px;
+}
+
+.card-body p {
+    margin: 2px 0;
+    font-size: 14px;
+}
+
+.card-body .tipo {
+    font-size: 12px;
+    text-transform: uppercase;
+    color: #a0c4ff;
+}
+
+.btn-ver,
+.btn-accion {
+    display: inline-block;
+    margin-top: 8px;
+    padding: 6px 12px;
+    background-color: #1b13d6;
+    color: #fff;
+    border-radius: 4px;
+    text-decoration: none;
+    font-size: 13px;
+    text-transform: uppercase;
+}
+
+.btn-peligro {
+    background-color: #b30000;
+}
+
+/* ======================================= */
+/*              DETALLE VEHÍCULO           */
+/* ======================================= */
+
+.detalle-vehiculo {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+
+.detalle-img img {
+    width: 100%;
+    height: auto;
+}
+
+/* ======================================= */
+/*            FORMULARIOS / AUTH           */
+/* ======================================= */
+
+.formulario {
+    max-width: 600px;
+}
+
+.campo-form {
+    margin-bottom: 16px;
+    display: flex;
+    flex-direction: column;
+}
+
+.campo-form input,
+.campo-form textarea,
+.campo-form select {
+    padding: 8px;
+    border-radius: 4px;
+    border: 1px solid #444;
+    background-color: #222;
+    color: #fff;
+}
+
+/* ======================================= */
+/*           RESPONSIVE MOBILE             */
+/* ======================================= */
+
+@media (max-width: 768px) {
+    .navbar-maxi {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 10px;
+    }
+
+    .navbar-menu {
+        flex-wrap: wrap;
+        gap: 14px;
+    }
+
+    .footer-maxi {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 14px;
+    }
+
+    .galeria-container {
+        width: 90%;
+    }
+}
+
+/* ======================================= */
+/*            BOTÓN VOLVER INICIO          */
+/* ======================================= */
+
+.btn-volver-inicio,
+.btn-volver-mini {
+    background-color: #2341FF;
+    color: white;
+    border-radius: 50%;
+    font-size: 18px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 10px 12px;
+    transition: 0.3s;
+    text-decoration: none;
+}
+
+.btn-volver-mini:hover,
+.btn-volver-inicio:hover {
+    background-color: #162dbd;
+    transform: scale(1.1);
+}
+
+/* ======================================= */
+/*          MENSAJES DE FAVORITOS          */
+/* ======================================= */
+
+.mensaje-alerta {
+    background-color: #4caf50;
+    color: white;
+    padding: 10px 18px;
+    border-radius: 6px;
+    font-size: 16px;
+    font-weight: bold;
+    animation: fadeOut 4s forwards;
+}
+
+@keyframes fadeOut {
+    0% { opacity: 1; }
+    80% { opacity: 1; }
+    100% { opacity: 0; }
+}
+
+/* ======================================= */
+/*          CARRUSEL DE IMÁGENES           */
+/* ======================================= */
+
+.galeria-container {
+    position: relative;
+    max-width: 750px;
+    margin: 0 auto;
+    overflow: hidden;
+}
+
+.slide {
+    display: none;
+    width: 100%;
+}
+
+.slide img {
+    width: 100%;
+    height: auto;
+    border-radius: 12px;
+}
+
+/* Flechas */
+.prev, .next {
+    cursor: pointer;
+    position: absolute;
+    top: 45%;
+    padding: 14px;
+    color: white;
+    font-size: 28px;
+    border-radius: 50%;
+    user-select: none;
+    background: rgba(0,0,0,0.6);
+    transition: 0.3s;
+}
+
+.prev:hover, .next:hover {
+    background: rgba(0,0,0,0.85);
+    transform: scale(1.1);
+}
+
+.prev { left: 12px; }
+.next { right: 12px; }
+
+/* Miniaturas */
+.galeria-mini {
+    margin: 15px auto 25px;
+    display: flex;
+    gap: 12px;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.miniatura {
+    width: 120px;
+    height: 80px;
+    object-fit: cover;
+    cursor: pointer;
+    border-radius: 6px;
+    border: 3px solid transparent;
+    transition: 0.2s ease;
+}
+
+.miniatura:hover {
+    transform: scale(1.05);
+    border-color: #1b13d6;
+}
+
+.miniatura-activa {
+    border-color: #1b13d6;
+    transform: scale(1.06);
+}
+
+
+/* ======================================= */
+/*                 PRECIO                  */
+/* ======================================= */
+
+.precio-vehiculo {
+    font-size: 18px;
+    color: #00e676;
+    font-weight: bold;
+    margin-top: 5px;
+}
